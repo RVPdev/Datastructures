@@ -48,6 +48,38 @@ class Queue {
   isEmpty() {
     return this.first === null;
   }
+
+  find(isMatch) {
+    return this.findWithPrevious(isMatch)[0];
+  }
+    findWithPrevious(isMatch) {
+    let index = 0;
+    let previous = null;
+    let node = this.first
+    while (node) {
+      if (isMatch(node, index, this)) {
+        return [node, previous];
+      }
+      index++;
+      previous = node;
+      node = node.next;
+    }
+    return [null, null];
+  }
+    remove(isMatch) {
+    const [matchedNode, previousNode] = this.findWithPrevious(isMatch);
+
+    if (!matchedNode) {
+      return null;
+    }
+
+    if (this.first === matchedNode) {
+      this.first = this.first.next;
+    } else {
+      previousNode.next = matchedNode.next;
+    }
+    return matchedNode.value;
+  }
 }
 
 module.exports = Queue;
