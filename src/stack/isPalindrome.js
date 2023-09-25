@@ -14,11 +14,30 @@
 const Stack = require("../stack/stack");
 
 function isPalindrome(text) {
+
   const cleanText = text.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
+  
+  if(cleanText.length === 1) return true;
+  if(cleanText.length === 0) return false;
 
-  // TODO: Write an O(n) algorithm that uses a stack to determine whether the given input text is palindrome or not.
+  
+  const stack = new Stack();
 
-  return false;
+  let reversedStr = ""; 
+  
+  // console.log(cleanText);
+
+  for(let c of cleanText) {
+    stack.push(c);
+  }
+
+  while(!stack.isEmpty()) {
+    reversedStr += stack.pop();
+  }
+
+    // TODO: Write an O(n) algorithm that uses a stack to determine whether the given input text is palindrome or not.
+
+  return reversedStr === cleanText;
 }
 
 module.exports = isPalindrome;
